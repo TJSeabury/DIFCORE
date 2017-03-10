@@ -1,0 +1,91 @@
+/*
+Theme Name: Jupiter Child
+Template: jupiter
+Theme URI: http://themeforest.net/user/artbees
+Author: DIF Design
+Author URI: http://difdesign.com/
+Version: 1.0
+Description: Custom Layout.
+*/
+
+/*
+* Typography
+*/
+
+
+/*
+* Header
+*/
+
+
+/*
+* Home
+*/
+
+
+/*
+* Page
+*/
+
+
+/*
+* Footer
+*/
+
+
+/*
+* Form
+*/
+
+
+/******************************************************
+* Helper Styles / Misc
+******************************************************/
+@media only screen and (min-width: 1px) {
+	.flex-valign,
+	.flex-valign .mk-grid {
+		display: block !important;
+	}
+}
+@media only screen and (min-width: 700px) {
+	.flex-valign,
+	.flex-valign .mk-grid {
+		display: flex !important;
+		flex-direction: row;
+		align-items: center;
+	}
+}
+a:not(.vc_gitem-link) {
+	display: inline-block;
+	font-size: 1.15rem;
+	color: #424242;
+	transition: 0.2s ease-in all;
+	text-shadow: 0px 0px 1px rgba(0,0,0,0.15), 0px 0px 1px rgba(0,0,0,0.15), 0px 1px 1px rgba(0,0,0,0.20), 0px 0px 1px rgba(0,0,0,0.15), 0px 0px 0px rgba(0,0,0,0.20);
+}
+a:hover:not(.vc_gitem-link) {
+	color: #323232;
+	text-shadow: 2.5px 1px 1px rgba(0,0,0,0.10), -2.5px 1px 1px rgba(0,0,0,0.10), 0px 2.5px 0.5px rgba(0,0,0,0.20), 0px -1.5px 0px rgba(0,0,0,0.10), 0px 0px 3px rgba(0,0,0,0.07);
+}
+.textShadow {
+    text-shadow: 0px 1px 1px rgba(0,0,0,0.5);
+}
+.boxShadow {
+    box-shadow: 0 2px 5px 1px rgba(0,0,0,0.6);
+}
+.hide {
+    display: none !important;
+    visibility: hidden !important;
+}
+.google-maps {
+	position: relative;
+	padding-bottom: 75%;
+	height: 0;
+	overflow: hidden;
+}
+.google-maps iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100% !important;
+	height: 100% !important;
+}
