@@ -4,6 +4,20 @@
 * @version 0.2
 */
 
+let difCoreUtilities = new DIFCOREUTILITIES();
+
+/*
+* Site core
+*/
+(function main(D,$){
+    'use strict';
+	
+	
+	// code . . . 
+	
+	
+})(difCoreUtilities,jQuery);
+
 /*
 * DIFCORE
 */
@@ -340,15 +354,4 @@ function DIFCOREUTILITIES() {
         }
     };
 }
-let difCoreUtilities = new DIFCOREUTILITIES();
-
-/*
-* Site core
-*/
-(function main(D,$){
-    'use strict';
-	
-	// code . . . 
-	
-})(difCoreUtilities,jQuery);
 
