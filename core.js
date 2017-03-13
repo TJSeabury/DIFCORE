@@ -1004,6 +1004,24 @@ function DIFCOREUTILITIES() {
 		}
     }
 	
+	this.shellSort = function( array ) {
+        let length = array.length,
+			h = 1;
+        while( h < length / 3 ) {
+            h = 3 * h + 1;
+        }
+        while( h > 0 ) {
+            for ( let i = h; i < length; i++ ) {
+                for ( let j = i; j > 0 && array[j] < array[j - h]; j -= h ) {
+                    array.swap( j, j - h );
+                }
+            }
+            //decreasing h
+            h = --h / 3;
+        }
+        return array;
+    };
+	
     this.setCookie = function(cookieName, value, lifespan) {
         let deathDate = new Date();
         deathDate.setDate(deathDate.getDate() + lifespan);
