@@ -703,10 +703,15 @@ function DIFCOREUTILITIES() {
         this.H = document.body.clientHeight;
     });
     window.dispatchEvent(new Event('resize'));
+
+    this.swap = function( arr, x, y ) {
+        arr[x] = [ arr[y], arr[y] = arr[x] ][0];
+        return this;
+    };
 	
 	/*
 	* Overlord will, in the future, replace event listeners for most use cases.
-	* !! This is still in developement and should not be considered anything other than experimental,
+	* !! This is still in development and should not be considered anything other than experimental,
 	* be expected to function properly, or at all. !!
 	* @Use Don't, not yet.
 	*/
@@ -984,17 +989,17 @@ function DIFCOREUTILITIES() {
 		if ( scrollTop > targetTop ) {
 			scrollUp = true;
 		}
-		let start = then = performance.now();
+		let then = performance.now();
 		render();
 		function render(now) {
 			let alpha;
 			if (scrollUp) {
-				alpha = round((baseAlpha + Math.sin(angle) * offset), 2);
+				alpha = self.round((baseAlpha + Math.sin(angle) * offset), 2);
 			} else {
-				alpha = round((baseAlpha - Math.sin(angle) * offset), 2);
+				alpha = self.round((baseAlpha - Math.sin(angle) * offset), 2);
 			}
 			console.log(scrollTop,targetTop,distance,targetYOffset);
-			window
+			//window
 			angle += speed;
 			then = now;
 			//requestAnimationFrame(render);
