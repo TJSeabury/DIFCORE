@@ -1018,7 +1018,7 @@ function DIFCOREUTILITIES() {
         while( h > 0 ) {
             for ( let i = h; i < length; i++ ) {
                 for ( let j = i; j > 0 && array[j] < array[j - h]; j -= h ) {
-                    array.swap( j, j - h );
+                    self.swap(array, j, j - h );
                 }
             }
             //decreasing h
