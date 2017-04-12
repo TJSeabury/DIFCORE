@@ -1,16 +1,76 @@
 /*
 * Core scripts
 * @author DIF Design http://difdesign.com/
-* @version 0.2
+* @version 0.3
 */
+'use strict';
 
-let difCoreUtilities = new DIFCOREUTILITIES();
+let DIFDesignCoreUtilities = new DIFCOREUTILITIES();
+window.addEventListener('load', () => {
+	const red = 'padding: 8px 0; color: #ed4b37; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
+		  green = 'padding: 8px 0; color: #21b15c; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
+		  blue = 'padding: 8px 0; color: #1c80bf; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
+		  grey = 'padding: 8px 0; color: #444; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
+		  lightGrey = 'padding: 8px 0; color: #aaa; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);';
+	console.log('%c D%cI%cF%cDesign%c:%cCoreUtilities %c> %cReady ',red,green,blue,lightGrey,grey,blue,grey,green);
+});
 
 /*
 * Site core
 */
-(function main(D,$){
-    'use strict';
+(function main(D,$) {
+	
+	/*
+	* Animate testimonials on home page
+	*/
+	if ( document.body.classList.contains('home') ) {
+		let testimonials, slider, start = performance.now(), now = start;
+		do {
+			now = performance.now();
+			testimonials = document.getElementsByClassName('testimonials')[0];
+		} while ( testimonials === undefined && ( now - start < 5000 ) );
+		if ( testimonials !== undefined ) {
+			let observer = new MutationObserver( mutations => {
+				mutations.forEach( mutation => {
+					for ( let i = 0; i < mutation.addedNodes.length; i++ ) {
+						if ( Object.prototype.toString.call(mutation.addedNodes[i]) === '[object HTMLDivElement]' &&
+							mutation.addedNodes[i].classList.contains('vc_pageable-wrapper') ) {
+							slider = intiSlider(mutation.addedNodes[i].getElementsByClassName('vc_pageable-slide-wrapper')[0]);
+							slider.interval = setInterval( slider.slide, 15000);
+							console.log(slider.interval);
+						}
+					}
+				});
+			});
+			observer.observe(testimonials, {
+				attributes: true,
+				childList: true,
+				characterData: true,
+				subtree: true
+			});
+		} else {
+			console.error('Testimonials does not exist.');
+		}
+	}
+	function intiSlider(el) {
+		let slides = el.getElementsByClassName('vc_grid-item');
+		el.style.display = 'flex';
+		el.style.width = el.offsetWidth * slides.length + 'px';
+		el.style.transition = '1s ease-in-out all';
+		el.parentElement.style.overflow = 'hidden';
+		el.active = 0;
+		el.slides = slides.length;
+		el.slideWidth = 100 / el.slides;
+		for ( let s = 0; s < el.slides; ++s ) {
+			slides[s].style.flexBasis = el.slideWidth + '%';
+		}
+		el.slide = function() {
+			el.active = ( el.active < el.slides - 1 ) ? el.active + 1 : 0;
+			el.style.transform = 'translateX('+ ( -1 * ( el.slideWidth * el.active ) ) +'%)';
+		};
+		return el;
+	}
+
 	
 	/*
 	* Injects the agents into the agentFeed section on the home page.
@@ -289,7 +349,6 @@ let difCoreUtilities = new DIFCOREUTILITIES();
 * DIFCORE
 */
 function DIFCOREUTILITIES() {
-    'use strict';
 
 	let self = this;
 
