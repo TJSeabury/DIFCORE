@@ -1,28 +1,51 @@
 /*
 * Core scripts
 * @author DIF Design http://difdesign.com/
-* @version 0.3
+* @version 0.3.1
 */
 'use strict';
 
-let DIFDesignCoreUtilities = new DIFCOREUTILITIES();
-window.addEventListener('load', () => {
-	const red = 'padding: 8px 0; color: #ed4b37; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
-		  green = 'padding: 8px 0; color: #21b15c; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
-		  blue = 'padding: 8px 0; color: #1c80bf; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
-		  grey = 'padding: 8px 0; color: #444; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
-		  lightGrey = 'padding: 8px 0; color: #aaa; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);';
-	console.log('%c D%cI%cF%cDesign%c:%cCoreUtilities %c> %cReady ',red,green,blue,lightGrey,grey,blue,grey,green);
-});
+let DIFDesignCoreUtilities = new DIFDESIGNCOREUTILITIES();
 
-/*
-* Site core
-*/
-(function main(D,$) {
-	
+function DIFDESIGNCOREUTILITIES() {
+
+	let self = this;
+
 	/*
-	* Animate testimonials on home page
+	* Handy-Dandy nifty properties
 	*/
+    window.addEventListener('resize', () => {
+        this.W = document.body.clientWidth;
+        this.H = document.body.clientHeight;
+    });
+    window.dispatchEvent(new Event('resize'));
+
+	/*
+	*
+	* !! TODO !!
+	*
+	* Overlord will, in the future, replace event listeners for most use cases.
+	* !! This is still in developement and should not be considered anything other than experimental,
+	* be expected to function properly, or at all. !!
+	* @Use - Don't, not yet.
+	*/
+    this.overlord = function initOverlord(fuu) {
+		new MutationObserver(function(mutations) {
+			mutations.forEach(function(mutation) {
+				console.log(mutation.type);
+			});
+    	});
+	};
+	/*
+	*
+	* !! TODO !!
+	*
+	
+	Pick this apart and make it modular and usable in general.
+	The secret to overlord is within our grasp; we need but seize it.
+	
+	//Animate testimonials on home page
+
 	if ( document.body.classList.contains('home') ) {
 		let testimonials, slider, start = performance.now(), now = start;
 		do {
@@ -70,11 +93,44 @@ window.addEventListener('load', () => {
 		};
 		return el;
 	}
-
+	
+	*/
 	
 	/*
-	* Injects the agents into the agentFeed section on the home page.
+	*
+	* !! TODO !!
+	*
+	
+	add some custom logging methods that usse these styles. 
+	
+	const red = 'padding: 8px 0; color: #ed4b37; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
+		  green = 'padding: 8px 0; color: #21b15c; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
+		  blue = 'padding: 8px 0; color: #1c80bf; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
+		  grey = 'padding: 8px 0; color: #444; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
+		  lightGrey = 'padding: 8px 0; color: #aaa; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);';
+	console.log('%c D%cI%cF%cDesign%c:%cCoreUtilities %c> %cReady ',red,green,blue,lightGrey,grey,blue,grey,green);
+	
 	*/
+	
+	
+	
+	/*
+	*
+	* !! TODO !!
+	*
+	Research and implement a system for catching errors and reporting them to a single point of colletion.
+	
+	*/
+	
+	/*
+	
+	I did some interesting things in this block of code. Most importantly the promises should be studied and made into some sort method
+	that can be integrated here to make asynchronus scripting easier. 
+	Also of note is XHR get and DOM parsing. Need to implement both of those into methods also.
+	
+	*
+	* Injects the agents into the agentFeed section on the home page.
+	*
 	if ( document.body.classList.contains('home') ) {
 		let agentsFeed;
 		do {
@@ -82,10 +138,10 @@ window.addEventListener('load', () => {
 		} while ( !agentsFeed );
 		D.pull('http://difdev.com/gallagher/agent-list/')
 			.then( data => {
-			/*
+			*
 			* Intrasite XHR get the agents listing page and parse the
 			* response doc to be scraped for content. 
-			*/
+			*
 			let parser = new DOMParser(),
 				doc = parser.parseFromString(data.documentElement.innerHTML, 'text/html'),
 				main = doc.getElementById('ihf-main-container');
@@ -98,10 +154,10 @@ window.addEventListener('load', () => {
 			do {
 				agents = wrapper.children;
 			} while ( !agents );
-			/*
+			*
 			* Mash up all the elements, scrub default classes/styles,
 			* replace with new classes. Remove un-needed elements.
-			*/
+			*
 			for ( let i = 0; i < agents.length; ++i ) {
 				agents[i].classList.remove('col-sm-6','mt-10');
 				agents[i].classList.add('agent');
@@ -138,9 +194,9 @@ window.addEventListener('load', () => {
 					brs[b].parentNode.removeChild(brs[b]);
 				}
 			}
-			/*
+			*
 			* Shuffle the agents. Pull agents into array for later use.
-			*/
+			*
 			let agentNodes = [];
 			for ( let i = agents.length; i >= 0; --i ) {
 				let rnum = Math.random() * i | 0;
@@ -149,9 +205,9 @@ window.addEventListener('load', () => {
 					agents[rnum].remove();
 				}
 			}
-			/*
+			*
 			* Inject the first three rows of agent nodes back into agentsWrapper.
-			*/
+			*
 			const agentSize = agentResizer();
 			for ( let a = 0; a < agentNodes.length; ++a) {
 				agentNodes[a].style.flexBasis = agentSize.width + '%';
@@ -160,16 +216,16 @@ window.addEventListener('load', () => {
 			for ( let i = agentSize.columns * 3 - 1; i >= 0; --i) {
 				wrapper.appendChild(agentNodes.shift());
 			}
-			/*
+			*
 			* Insert the agentsWrapper into agentsFeed section.
-			*/
+			*
 			agentsFeed.appendChild(wrapper);
 			return agentNodes;
 		}).then( agents => {
-			/*
+			*
 			* Inject the load more button and attatch its functionality.
 			* Attatch handlers for window resizing.
-			*/
+			*
 			const wrapper = document.getElementById('agentsWrapper');
 			wrapper.expanded = false;
 			wrapper.agentsHopper = agents;
@@ -262,57 +318,16 @@ window.addEventListener('load', () => {
 			columns: columns
 		};
 	}
-
-	/*
-	* Set any section tagged with the class 'dif_fullHeight' or 'dif_halfHeight'
-	* to the height of the viewport or half that respectively.
+	
 	*/
-	window.addEventListener('resize', () => {
-		let fullHeightSections = document.getElementsByClassName('dif_fullHeight'),
-			halfHeightSections = document.getElementsByClassName('dif_halfHeight'),
-			wpBarH;
-		if ( $('#wpadminbar') ) {
-			wpBarH = $('#wpadminbar').height();
-		}
-		[].forEach.call(fullHeightSections, (element) => {
-			element.style.minHeight = D.H - wpBarH + 'px';
-		});
-		[].forEach.call(halfHeightSections, (element) => {
-			element.style.minHeight = D.H / 2 - wpBarH + 'px';
-		});
-	});
-	window.dispatchEvent(new Event('resize'));
-	window.addEventListener('load', () => {
-		window.dispatchEvent(new Event('resize'));
-	});
 	
 	/*
-	* Handles footer form ui animations
+	* Useful polyfill I found, though it might not be needed for much longer.
+	*
+	* !! TODO !!
+	*
+	* It would be wise to study its implementation and maybe integrate it.
 	*/
-	window.addEventListener('load', () => {
-		let fields = document.getElementsByClassName('dif_movingLabel');
-		function focusedState(element) {
-			element.addEventListener('focusin', (e) => {
-				let a = e.target.parentElement.previousElementSibling;
-				a.style.transform = 'translateY(-50%)';
-				a.style.opacity = 0.3;
-			}, true);
-		}
-		function blurredState(element) {
-			element.addEventListener('focusout', (e) => {
-				if ( e.target.value === '' ) {
-					let a = e.target.parentElement.previousElementSibling;
-					a.style.transform = 'translateY(0%)';
-					a.style.opacity = 1.0;
-				}
-			}, true);
-		}
-		for ( let f = 0; f < fields.length; ++f ) {
-			focusedState(fields[f]);
-			blurredState(fields[f]);
-		}
-	});
-	
 	polyfill();
 	function polyfill() {
 		let w = window,
@@ -343,39 +358,68 @@ window.addEventListener('load', () => {
 		}
 	}
 	
-})(difCoreUtilities,jQuery);
-
-/*
-* DIFCORE
-*/
-function DIFCOREUTILITIES() {
-
-	let self = this;
-
 	/*
-	* Handy-Dandy nifty properties
+	* Handles form ui animations
+	*
+	* !! TODO !!
+	*
+	* This is usefull but needs to be more generalized.
 	*/
-    window.addEventListener('resize', () => {
-        this.W = document.body.clientWidth;
-        this.H = document.body.clientHeight;
-    });
-    window.dispatchEvent(new Event('resize'));
-
+	window.addEventListener('load', () => {
+		let fields = document.getElementsByClassName('dif_movingLabel');
+		function focusedState(element) {
+			element.addEventListener('focusin', (e) => {
+				let a = e.target.parentElement.previousElementSibling;
+				a.style.transform = 'translateY(-50%)';
+				a.style.opacity = 0.3;
+			}, true);
+		}
+		function blurredState(element) {
+			element.addEventListener('focusout', (e) => {
+				if ( e.target.value === '' ) {
+					let a = e.target.parentElement.previousElementSibling;
+					a.style.transform = 'translateY(0%)';
+					a.style.opacity = 1.0;
+				}
+			}, true);
+		}
+		for ( let f = 0; f < fields.length; ++f ) {
+			focusedState(fields[f]);
+			blurredState(fields[f]);
+		}
+	});
+	
 	/*
-	* Overlord will, in the future, replace event listeners for most use cases.
-	* !! This is still in developement and should not be considered anything other than experimental,
-	* be expected to function properly, or at all. !!
-	* @Use - Don't, not yet.
+	* Set any section tagged with the class 'dif_fullHeight' or 'dif_halfHeight'
+	* to the height of the viewport or half that respectively.
+	*
+	* !! TODO !!
+	*
+	* Very usefull, make it more robust and integrate.
 	*/
-    this.overlord = function initOverlord(fuu) {
-		new MutationObserver(function(mutations) {
-			mutations.forEach(function(mutation) {
-				console.log(mutation.type);
-			});
-    	});
-	};
+	window.addEventListener('resize', () => {
+		let fullHeightSections = document.getElementsByClassName('dif_fullHeight'),
+			halfHeightSections = document.getElementsByClassName('dif_halfHeight'),
+			wpBarH;
+		if ( $('#wpadminbar') ) {
+			wpBarH = $('#wpadminbar').height();
+		}
+		[].forEach.call(fullHeightSections, (element) => {
+			element.style.minHeight = D.H - wpBarH + 'px';
+		});
+		[].forEach.call(halfHeightSections, (element) => {
+			element.style.minHeight = D.H / 2 - wpBarH + 'px';
+		});
+	});
+	window.dispatchEvent(new Event('resize'));
+	window.addEventListener('load', () => {
+		window.dispatchEvent(new Event('resize'));
+	});
 
     /*
+	*
+	* !! TODO !!
+	*
     * Cross-browser implementation of element.addEventListener()
 	* @param {function Array} fu - 
     * @param {String} target - 
@@ -419,6 +463,9 @@ function DIFCOREUTILITIES() {
     };
 
 	/*
+	*
+	* !! TODO !!
+	*
 	* Basically just shitty jQuery.
 	* @param {String} target - Takes a css selector or an array of css selectors.
 	* @todo - Finish and make it actually work.
@@ -460,6 +507,9 @@ function DIFCOREUTILITIES() {
     };
 
 	/*
+	*
+	* !! TODO !!
+	*
 	* Directly manipulate stylesheets instead on inline styles.
 	* @todo - this needs to be modified to get existing stylesheets
 	* @research - is this actually faster, better, harder, or stronger? use cases?
@@ -1409,7 +1459,3 @@ function DIFCOREUTILITIES() {
     };
 	
 }
-
-
-
-

@@ -1,7 +1,7 @@
 <?php
 
-function dif_core_js () {
-	wp_enqueue_script( 'DIFDesignCoreJS', get_stylesheet_directory_uri() . '/core.js', array(), 0.2, true);
+function difdesign_main_js () {
+	wp_enqueue_script( 'DIFDesignMainJS', get_stylesheet_directory_uri() . '/main.js', array(), 0.9, true);
 }
 
-add_action('wp_enqueue_scripts', 'dif_core_js');
+add_action('wp_enqueue_scripts', 'difdesign_main_js');
