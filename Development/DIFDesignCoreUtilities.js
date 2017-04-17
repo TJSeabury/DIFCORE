@@ -402,7 +402,7 @@ function DIFDESIGNCOREUTILITIES() {
 			halfHeightSections = document.getElementsByClassName('dif_halfHeight'),
 			wpBarH;
 		if ( document.getElementById('wpadminbar') ) {
-			wpBarH = document.getElementById('wpadminbar').height();
+			wpBarH = document.getElementById('wpadminbar').offsetHeight;
 		}
 		[].forEach.call(fullHeightSections, (element) => {
 			element.style.minHeight = D.H - wpBarH + 'px';
