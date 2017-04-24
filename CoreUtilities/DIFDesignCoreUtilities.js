@@ -1457,7 +1457,7 @@ function DIFDESIGNCOREUTILITIES() {
 	* Announce loaded and ready.
 	*/
 	this.announceReady = function() {
-		const window._DIFDesignCoreReady = new CustomEvent('DIFDesignCoreReady', { 'timestamp': performance.now() });
+		window._DIFDesignCoreReady = new CustomEvent('DIFDesignCoreReady', { 'timestamp': performance.now() });
 		window.dispatchEvent(window._DIFDesignCoreReady);
 		console.log(
 		'%c D%cI%cF%cDesign%c:%cCoreUtilities %c> %cReady ',
