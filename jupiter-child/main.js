@@ -3,14 +3,15 @@
 * @author DIF Design http://difdesign.com/
 * @version 0.9.0
 */
-'use strict';
-
-(function main(D,$) {
+window.addEventListener('DIFDesignCoreReady', function main() {
+	'use strict';
+	
+	let D = DIFDesignCoreUtilities;
+	let $ = jQuery;
 	
 	// code . . .
-	
-})(DIFDesignCoreUtilities,jQuery);
 
+});
 
 
 
