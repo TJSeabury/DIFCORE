@@ -6,6 +6,7 @@
 'use strict';
 
 let DIFDesignCoreUtilities = new DIFDESIGNCOREUTILITIES();
+DIFDesignCoreUtilities.announceReady();
 
 function DIFDESIGNCOREUTILITIES() {
 
@@ -1452,23 +1453,23 @@ function DIFDESIGNCOREUTILITIES() {
 		}
 	};
 	
-	
-	
 	/*
 	* Announce loaded and ready.
 	*/
-	const _DIFDesignCoreReady = new CustomEvent('DIFDesignCoreReady', { 'timestamp': performance.now() });
-	window.dispatchEvent(_DIFDesignCoreReady);
-	console.log(
-	'%c D%cI%cF%cDesign%c:%cCoreUtilities %c> %cReady ',
-	'padding: 8px 0; color: #ed4b37; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
-	'padding: 8px 0; color: #21b15c; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
-	'padding: 8px 0; color: #1c80bf; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
-	'padding: 8px 0; color: hsla(220,15%,60%,1); font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
-	'padding: 8px 0; color: #444; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
-	'padding: 8px 0; color: #1c80bf; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
-	'padding: 8px 0; color: #444; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
-	'padding: 8px 0; color: #21b15c; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);'
-	);
+	this.announceReady = function() {
+		const window._DIFDesignCoreReady = new CustomEvent('DIFDesignCoreReady', { 'timestamp': performance.now() });
+		window.dispatchEvent(window._DIFDesignCoreReady);
+		console.log(
+		'%c D%cI%cF%cDesign%c:%cCoreUtilities %c> %cReady ',
+		'padding: 8px 0; color: #ed4b37; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
+		'padding: 8px 0; color: #21b15c; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
+		'padding: 8px 0; color: #1c80bf; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
+		'padding: 8px 0; color: hsla(220,15%,60%,1); font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
+		'padding: 8px 0; color: #444; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
+		'padding: 8px 0; color: #1c80bf; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
+		'padding: 8px 0; color: #444; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
+		'padding: 8px 0; color: #21b15c; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);'
+		);
+	};
 	
 }
