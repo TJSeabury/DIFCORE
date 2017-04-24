@@ -1452,9 +1452,13 @@ function DIFDESIGNCOREUTILITIES() {
 		}
 	};
 	
+	
+	
 	/*
 	* Announce loaded and ready.
 	*/
+	const _DIFDesignCoreReady = new CustomEvent('DIFDesignCoreReady', { 'timestamp': performance.now() });
+	window.dispatchEvent(_DIFDesignCoreReady);
 	console.log(
 	'%c D%cI%cF%cDesign%c:%cCoreUtilities %c> %cReady ',
 	'padding: 8px 0; color: #ed4b37; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
