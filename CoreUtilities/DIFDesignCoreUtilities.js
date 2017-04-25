@@ -400,10 +400,10 @@ function DIFDESIGNCOREUTILITIES() {
 			wpBarH = document.getElementById('wpadminbar').offsetHeight;
 		}
 		[].forEach.call(fullHeightSections, (element) => {
-			element.style.minHeight = D.H - wpBarH + 'px';
+			element.style.minHeight = self.H - wpBarH + 'px';
 		});
 		[].forEach.call(halfHeightSections, (element) => {
-			element.style.minHeight = D.H / 2 - wpBarH + 'px';
+			element.style.minHeight = self.H / 2 - wpBarH + 'px';
 		});
 	});
 	window.dispatchEvent(new Event('resize'));
