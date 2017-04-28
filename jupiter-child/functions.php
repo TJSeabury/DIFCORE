@@ -5,7 +5,7 @@
 $GLOBALS['mode'] = 'development';
 //$GLOBALS['mode'] = 'live';
 
-add_action('wp_enqueue_scripts', 'difDesign_main_css', 42);
+add_action('wp_enqueue_scripts', 'difDesign_main_css', 420);
 add_action('wp_enqueue_scripts', 'difDesign_core_js', 24);
 add_action('wp_enqueue_scripts', 'difDesign_main_js', 16);
 

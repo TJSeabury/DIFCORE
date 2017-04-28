@@ -10,10 +10,5 @@ window.addEventListener('DIFDesignCoreReady', function main() {
 	let $ = jQuery;
 	
 	// code . . .
-
+	
 });
-
-
-
-
-
