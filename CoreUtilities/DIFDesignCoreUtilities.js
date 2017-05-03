@@ -362,6 +362,33 @@ function DIFDESIGNCOREUTILITIES() {
     }
 
     /*
+    * Validate links.
+    */
+    this.validateLinks = function() {
+        return new Promise( (resolve, reject) => {
+            let links = document.getElementsByTagName('a'),
+                valid = [],
+                broken = [];
+            for ( let a = 0; a < links.length; ++a ) {
+                if ( links[a].getAttribute('href') ) {
+                    if ( links[a].getAttribute('href') === '' || links[a].getAttribute('href') === '#' ) {
+                        broken.push(links[a]);
+                    } else {
+                        valid.push(links[a]);
+                        // and follow link to see if valid, but I'll write that later because
+                        // that functionality will require get requests and DOM parsing, and I
+                        // don't feel like doing all that right now.
+                    }
+                } else {
+                    broken.push(links[a]);
+                }
+            }
+            resolve(valid);
+            reject(broken);
+        });
+    };
+
+    /*
      * Handles form ui animations
      *
      * !! TODO !!
