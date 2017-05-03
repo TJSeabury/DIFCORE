@@ -371,7 +371,7 @@ function DIFDESIGNCOREUTILITIES() {
                 broken = [];
             for ( let a = 0; a < links.length; ++a ) {
                 if ( links[a].getAttribute('href') ) {
-                    if ( links[a].getAttribute('href') === '' || links[a].getAttribute('href') === '#' ) {
+                    if ( links[a].getAttribute('href') === ( location.protocol + '//' + location.hostname + location.pathname + '#' ) ) {
                         broken.push(links[a]);
                     } else {
                         valid.push(links[a]);
