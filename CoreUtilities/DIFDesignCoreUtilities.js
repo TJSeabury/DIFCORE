@@ -35,9 +35,9 @@ function DIFDESIGNCOREUTILITIES() {
         this.watchers = [];
 
         /*
-        * { name, callback }
+        * { name, target, callback }
         */
-        /*this.regard = function(obj) {
+        this.regard = function(obj) {
             let ob = new MutationObserver( mutations => {
                 for ( let m = 0; m < mutations.length; ++m ) {
 
@@ -52,7 +52,7 @@ function DIFDESIGNCOREUTILITIES() {
                 subtree: true
             });
 
-        }*/
+        }
 
     }
     /*
@@ -405,18 +405,21 @@ function DIFDESIGNCOREUTILITIES() {
     window.addEventListener('resize', () => {
         let fullHeightSections = document.getElementsByClassName('dif_fullHeight'),
             halfHeightSections = document.getElementsByClassName('dif_halfHeight'),
-            wpBarH;
-        if (document.getElementById('wpadminbar')) {
-            wpBarH = document.getElementById('wpadminbar').offsetHeight;
-        } else {
-            wpBarH = 0;
+            wpBarH = document.getElementById('wpadminbar'),
+            header = document.getElementsByClassName('mk-header')[0];
+        wpBarH = wpBarH ? wpBarH.offsetHeight : 0;
+        header = header ? header.offsetHeight : 0;
+        for ( let fhs = 0; fhs < fullHeightSections.length; ++fhs ) {
+            if ( fullHeightSections[fhs].classList.contains('dif_firstFullHeight') ) {
+                fullHeightSections[fhs].style.marginTop = header + 'px';
+                fullHeightSections[fhs].style.minHeight = self.H - wpBarH - header + 'px';
+            } else {
+                fullHeightSections[fhs].style.minHeight = self.H - wpBarH + 'px';
+            }
         }
-        [].forEach.call(fullHeightSections, (element) => {
-            element.style.minHeight = self.H - wpBarH + 'px';
-        });
-        [].forEach.call(halfHeightSections, (element) => {
-            element.style.minHeight = self.H / 2 - wpBarH + 'px';
-        });
+        for ( let hhs = 0; hhs < halfHeightSections.length; ++hhs ) {
+            halfHeightSections[hhs].style.minHeight = self.H / 2 - wpBarH + 'px';
+        }
     });
     window.dispatchEvent(new Event('resize'));
     window.addEventListener('load', () => {
