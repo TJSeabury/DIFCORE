@@ -1473,7 +1473,7 @@ function DIFDESIGNCOREUTILITIES() {
      * Announce loaded and ready.
      */
     this.announceReady = function () {
-        window._DIFDesignCoreReady = new CustomEvent('DIFDesignCoreReady', {'timestamp': performance.now()});
+        window._DIFDesignCoreReady = new CustomEvent('DIFDesignCoreReady', { bubbles: true, cancelable: false, timestamp: performance.now() });
         console.log(
             '%c D%cI%cF%cDesign%c:%cCoreUtilities %c> %cReady ',
             'padding: 8px 0; color: #ed4b37; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
