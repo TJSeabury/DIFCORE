@@ -3,12 +3,13 @@
  * @author DIF Design http://difdesign.com/
  * @version 0.3.1
  */
-'use strict';
+
 
 let DIFDesignCoreUtilities = new DIFDESIGNCOREUTILITIES();
 DIFDesignCoreUtilities.announceReady();
 
 function DIFDESIGNCOREUTILITIES() {
+    'use strict';
 
     let self = this;
 
