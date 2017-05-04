@@ -424,35 +424,45 @@ function DIFDESIGNCOREUTILITIES() {
 
     /*
      * Set any section tagged with the class 'dif_fullHeight' or 'dif_halfHeight'
-     * to the height of the viewport or half that respectively.
-     *
-     * !! TODO !!
-     *
-     * Very usefull, make it more robust and integrate.
+     * to the height of the viewport or half that respectively. Additionally, it
+     * takes an array of elements to get heights from that are used in sizing the
+     * class targeted elements.
      */
-    window.addEventListener('resize', () => {
+    this.heightSetter = function(basic = true, parts = null) {
         let fullHeightSections = document.getElementsByClassName('dif_fullHeight'),
-            halfHeightSections = document.getElementsByClassName('dif_halfHeight'),
-            wpBarH = document.getElementById('wpadminbar'),
-            header = document.getElementsByClassName('mk-header')[0];
-        wpBarH = wpBarH ? wpBarH.offsetHeight : 0;
-        header = header ? header.offsetHeight : 0;
-        for ( let fhs = 0; fhs < fullHeightSections.length; ++fhs ) {
-            if ( fullHeightSections[fhs].classList.contains('dif_firstFullHeight') ) {
-                fullHeightSections[fhs].style.marginTop = header + 'px';
-                fullHeightSections[fhs].style.minHeight = self.H - wpBarH - header + 'px';
-            } else {
-                fullHeightSections[fhs].style.minHeight = self.H - wpBarH + 'px';
+            halfHeightSections = document.getElementsByClassName('dif_halfHeight');
+        let o = {
+            wpBarH: document.getElementById('wpadminbar'),
+            header: document.getElementsByClassName('mk-header')[0]
+        };
+        window.addEventListener('resize', () => {
+            let subtraction = 0;
+            subtraction += o.wpBarH ? o.wpBarH.offsetHeight : 0;
+            if ( fullHeightSections[fhs].classList.contains('dif_firstFullHeight') && basic ) {
+                subtraction += o.header ? o.header.offsetHeight : 0;
             }
-        }
-        for ( let hhs = 0; hhs < halfHeightSections.length; ++hhs ) {
-            halfHeightSections[hhs].style.minHeight = self.H / 2 - wpBarH + 'px';
-        }
-    });
-    window.dispatchEvent(new Event('resize'));
-    window.addEventListener('load', () => {
+            if ( parts !== null ) {
+                for ( let p = 0; p < parts.length; ++p ) {
+                    subtraction += parts[p] ? parts[p].offsetHeight : 0;
+                }
+            }
+            for ( let fhs = 0; fhs < fullHeightSections.length; ++fhs ) {
+                if ( fullHeightSections[fhs].classList.contains('dif_firstFullHeight') ) {
+                    fullHeightSections[fhs].style.marginTop = o.header + 'px';
+                    fullHeightSections[fhs].style.minHeight = self.H - subtraction + 'px';
+                } else {
+                    fullHeightSections[fhs].style.minHeight = self.H - subtraction + 'px';
+                }
+            }
+            for ( let hhs = 0; hhs < halfHeightSections.length; ++hhs ) {
+                halfHeightSections[hhs].style.minHeight = self.H / 2 - subtraction + 'px';
+            }
+        });
         window.dispatchEvent(new Event('resize'));
-    });
+        window.addEventListener('load', () => {
+            window.dispatchEvent(new Event('resize'));
+        });
+    };
 
     /*
      *
