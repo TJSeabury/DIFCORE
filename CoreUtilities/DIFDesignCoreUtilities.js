@@ -428,7 +428,7 @@ function DIFDESIGNCOREUTILITIES() {
      * takes an array of elements to get heights from that are used in sizing the
      * class targeted elements.
      */
-    this.heightSetter = function(basic = true, parts = null) {
+    this.heightSetter = function(basic, parts = null) {
         let fullHeightSections = document.getElementsByClassName('dif_fullHeight'),
             halfHeightSections = document.getElementsByClassName('dif_halfHeight');
         let o = {
@@ -446,6 +446,7 @@ function DIFDESIGNCOREUTILITIES() {
                     subtraction += parts[p] ? parts[p].offsetHeight : 0;
                 }
             }
+            console.log(subtraction);
             for ( let fhs = 0; fhs < fullHeightSections.length; ++fhs ) {
                 if ( fullHeightSections[fhs].classList.contains('dif_firstFullHeight') ) {
                     fullHeightSections[fhs].style.marginTop = o.header + 'px';
