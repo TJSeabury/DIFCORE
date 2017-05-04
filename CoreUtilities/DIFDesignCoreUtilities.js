@@ -429,13 +429,13 @@ function DIFDESIGNCOREUTILITIES() {
      * class targeted elements.
      */
     this.heightSetter = function(basic, parts = null) {
-        let fullHeightSections = document.getElementsByClassName('dif_fullHeight'),
-            halfHeightSections = document.getElementsByClassName('dif_halfHeight');
-        let o = {
-            wpBarH: document.getElementById('wpadminbar'),
-            header: document.getElementsByClassName('mk-header')[0]
-        };
         window.addEventListener('resize', () => {
+            let fullHeightSections = document.getElementsByClassName('dif_fullHeight'),
+                halfHeightSections = document.getElementsByClassName('dif_halfHeight');
+            let o = {
+                wpBarH: document.getElementById('wpadminbar'),
+                header: document.getElementsByClassName('mk-header')[0]
+            };
             let subtraction = 0;
             subtraction += o.wpBarH ? o.wpBarH.offsetHeight : 0;
             if ( !!document.getElementsByClassName('dif_firstFullHeight') && basic ) {
@@ -1511,7 +1511,7 @@ function DIFDESIGNCOREUTILITIES() {
      * Announce loaded and ready.
      */
     this.announceReady = function () {
-        window._DIFDesignCoreReady = new CustomEvent('DIFDesignCoreReady', { bubbles: true, cancelable: false, timestamp: performance.now() });
+        window._DIFDesignCoreReady = new CustomEvent('DIFDesignCoreReady', { bubbles: true });
         console.log(
             '%c D%cI%cF%cDesign%c:%cCoreUtilities %c> %cReady ',
             'padding: 8px 0; color: #ed4b37; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
