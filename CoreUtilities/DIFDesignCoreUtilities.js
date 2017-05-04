@@ -1,7 +1,7 @@
 /*
  * Core scripts
  * @author DIF Design http://difdesign.com/
- * @version 0.3.1
+ * @version 0.3.3
  */
 
 
@@ -438,7 +438,7 @@ function DIFDESIGNCOREUTILITIES() {
         window.addEventListener('resize', () => {
             let subtraction = 0;
             subtraction += o.wpBarH ? o.wpBarH.offsetHeight : 0;
-            if ( fullHeightSections[fhs].classList.contains('dif_firstFullHeight') && basic ) {
+            if ( !!document.getElementsByClassName('dif_firstFullHeight') && basic ) {
                 subtraction += o.header ? o.header.offsetHeight : 0;
             }
             if ( parts !== null ) {
