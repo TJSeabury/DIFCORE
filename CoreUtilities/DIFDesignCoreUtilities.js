@@ -449,7 +449,7 @@ function DIFDESIGNCOREUTILITIES() {
                 }
                 if ( fullHeightSections[fhs].classList.contains('dif_firstFullHeight') ) {
                     console.log(o.header);
-                    fullHeightSections[fhs].style.marginTop = o.header + 'px';
+                    fullHeightSections[fhs].style.marginTop = o.header.offsetHeight + 'px';
                     fullHeightSections[fhs].style.minHeight = self.H - subtraction + 'px';
                 } else {
                     fullHeightSections[fhs].style.minHeight = self.H - subtraction + 'px';
