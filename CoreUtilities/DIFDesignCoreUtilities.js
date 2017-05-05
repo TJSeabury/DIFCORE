@@ -436,18 +436,17 @@ function DIFDESIGNCOREUTILITIES() {
                 wpBarH: document.getElementById('wpadminbar'),
                 header: document.getElementsByClassName('mk-header')[0]
             };
-            let subtraction = 0;
-            subtraction += o.wpBarH ? o.wpBarH.offsetHeight : 0;
-            if ( !!document.getElementsByClassName('dif_firstFullHeight') && basic ) {
-                subtraction += o.header ? o.header.offsetHeight : 0;
-            }
-            if ( parts !== null ) {
-                for ( let p = 0; p < parts.length; ++p ) {
-                    subtraction += parts[p] ? parts[p].offsetHeight : 0;
-                }
-            }
-            console.log(subtraction);
             for ( let fhs = 0; fhs < fullHeightSections.length; ++fhs ) {
+                let subtraction = 0;
+                subtraction += o.wpBarH ? o.wpBarH.offsetHeight : 0;
+                if ( !!document.getElementsByClassName('dif_firstFullHeight') && basic ) {
+                    subtraction += o.header ? o.header.offsetHeight : 0;
+                }
+                if ( !!document.getElementsByClassName('dif_firstFullHeight') && parts !== null ) {
+                    for ( let p = 0; p < parts.length; ++p ) {
+                        subtraction += parts[p] ? parts[p].offsetHeight : 0;
+                    }
+                }
                 if ( fullHeightSections[fhs].classList.contains('dif_firstFullHeight') ) {
                     fullHeightSections[fhs].style.marginTop = o.header + 'px';
                     fullHeightSections[fhs].style.minHeight = self.H - subtraction + 'px';
