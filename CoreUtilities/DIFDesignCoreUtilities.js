@@ -455,7 +455,7 @@ function DIFDESIGNCOREUTILITIES() {
                 }
             }
             for ( let hhs = 0; hhs < halfHeightSections.length; ++hhs ) {
-                halfHeightSections[hhs].style.minHeight = self.H / 2 - subtraction + 'px';
+                halfHeightSections[hhs].style.minHeight = self.H / 2 + 'px';
             }
         });
         window.dispatchEvent(new Event('resize'));
