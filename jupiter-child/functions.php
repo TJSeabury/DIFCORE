@@ -16,7 +16,7 @@ if ( $GLOBALS['mode'] === 'development') {
 add_filter( 'gform_enable_field_label_visibility_settings', '__return_true' );
 
 function difDesign_core_js() {
-	$scriptURL = 'https://cdn.rawgit.com/TJSeabury/DIFDesignEssentials/31b20cbe/CoreUtilities/DIFDesignCoreUtilities.js';
+	$scriptURL = 'https://cdn.rawgit.com/TJSeabury/DIFDesignEssentials/2d41ab15/CoreUtilities/Releases/DIFDesignCoreUtilities.js';
 	if ( $GLOBALS['mode'] === 'development' ) {
 		$scriptURL = 'https://rawgit.com/TJSeabury/DIFDesignEssentials/master/CoreUtilities/DIFDesignCoreUtilities.js';
 	}
