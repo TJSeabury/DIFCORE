@@ -16,10 +16,34 @@ function DIFDESIGNCOREUTILITIES() {
     'use strict';
 
     let self = this;
-    if ( wpMeta )
+
+    /*
+    * Check if wpMeta has been localized before accessing.
+    */
+    let wpMetaIsDefined = true;
+    try
     {
-        this._rootPathname = wpMeta.siteURL || '/';
+        wpMeta;
     }
+    catch( e )
+    {
+        if ( e.name === 'referenceError' )
+        {
+            wpMetaIsDefined = false;
+        }
+    }
+    finally
+    {
+        if ( wpMetaIsDefined )
+        {
+            this._rootPathname = wpMeta.siteURL || null;
+        }
+        else
+        {
+            this._rootPathname = null;
+        }
+    }
+    
 
     /*
     * Handy-Dandy nifty properties
