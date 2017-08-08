@@ -20,28 +20,17 @@ function DIFDESIGNCOREUTILITIES() {
     /*
     * Check if wpMeta has been localized before accessing.
     */
-    let wpMetaIsDefined = true;
     try
     {
-        wpMeta;
+        this._rootPathname = wpMeta.siteURL
     }
     catch( e )
     {
         if ( e.name === 'ReferenceError' )
         {
-            wpMetaIsDefined = false;
+            console.error('Failed to access localized variable wpMeta. \n_rootPathName was not set.');
         }
-    }
-    finally
-    {
-        if ( wpMetaIsDefined )
-        {
-            this._rootPathname = wpMeta.siteURL || null;
-        }
-        else
-        {
-            this._rootPathname = null;
-        }
+        this._rootPathname = null;
     }
     
 
