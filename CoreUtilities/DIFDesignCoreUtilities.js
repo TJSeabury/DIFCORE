@@ -27,7 +27,7 @@ function DIFDESIGNCOREUTILITIES() {
     }
     catch( e )
     {
-        if ( e.name === 'referenceError' )
+        if ( e.name === 'ReferenceError' )
         {
             wpMetaIsDefined = false;
         }
