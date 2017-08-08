@@ -20,80 +20,13 @@ function DIFDESIGNCOREUTILITIES() {
 	this._rootPathname = wpMeta.siteURL || '/';
 
     /*
-    * Handy-Dandy nifty properties
-    */
+     * Handy-Dandy nifty properties
+     */
     window.addEventListener('resize', () => {
         this.W = document.body.clientWidth;
         this.H = window.innerHeight;
     });
-    window.dispatchEvent( new Event('resize') );
-    
-    /*
-    * Helper method to more easily create elements.
-    * TODO - Needs to be fleshed out.
-    */
-    this.makeElement = function( element = 'div', classNames = [], content = '', attr = {} )
-	{
-		let r = null;
-		if ( element )
-		{
-			try
-			{
-				r = document.createElement( element );
-			}
-			catch ( e )
-			{	
-				console.error('Not a valid HTML Element tag name.');
-				throw e;
-			}
-		}
-		if ( classNames && classNames.constructor === Array )
-		{
-			for ( let c = 0; c < classNames.length; ++c )
-			{
-				try
-				{
-					r.classList.add( classNames[c] );
-				}
-				catch ( e )
-				{
-					throw e;
-				}
-			}
-		}
-		else
-		{
-			r.classList.add( classNames );
-		}
-		if ( content && ( typeof content === 'string' || content instanceof String )  )
-		{
-			r.innerHTML = content;
-		}
-		if ( attr && attr.constructor === Object )
-		{	
-			try
-			{
-				switch ( r.tagName )
-				{
-					case 'A':
-						r.setAttribute( 'href', attr.href );
-						r.setAttribute( 'target', attr.target );
-						break;
-					case 'IMG':
-						r.setAttribute( 'src', attr.src );
-						r.setAttribute( 'alt', attr.alt );
-						break;
-					default:
-						break;
-				}
-			}
-			catch ( e )
-			{
-				throw e;
-			}
-		}
-		return r;
-	};
+	window.dispatchEvent( new Event('resize') );
 
     /*
      *
@@ -245,7 +178,7 @@ function DIFDESIGNCOREUTILITIES() {
 			h -= s;
 			for ( let e = 0; e < elements.length; ++e )
 			{
-				elements[e].style.minHeight = h + 'px';
+				elements[e].setAttribute('style','height:' + h + 'px !important;');
 			}
         }
         );
@@ -256,35 +189,31 @@ function DIFDESIGNCOREUTILITIES() {
 	* Allows shortcodes to be executed asynchronously.
 	* Returns the generated content in a promise.
 	*/
-	/* !! currently broken !! */
-	/*this.doShortcode = function ( shortcode )
+	this.doShortcode = function ( shortcode )
 	{
 		return new Promise( ( resolve, reject ) =>
     	{
-			let r = new XMLHttpRequest();
-            r.open( 'POST', self._rootPathname + '/' + 'wp-admin/admin-ajax.php' + '/' );
-            r.onload = () => {
-                if ( r.readyState === r.DONE && ( r.status >= 200 && r.status <= 300 ) ) {
-					console.log(r.response);
-                    resolve( r.response );
-                } else {
-                    reject( {
+			$.ajax( {
+				url: _rootPathname + "wp-admin/admin-ajax.php",
+				method: 'post',
+				dataType: 'json',
+				data: {
+					'action': 'do_shortcode',
+					'fn': 'js_do_shortcode',
+					'shortcode': shortcode
+				},
+				success: function( results ) {
+					resolve( results );
+				},
+				error: function( er ) {
+					reject( {
 						status: this.status,
-						statusText: r.statusText
+						statusText: er
 					} );
-                }
-            };
-            r.onerror = () => {
-                reject({status: this.status, statusText: r.statusText});
-            };
-            r.send( JSON.stringify({
-				'action': 'do_shortcode',
-				'fn': 'js_do_shortcode',
-				'shortcode': shortcode
-			}) );
-			
+				}
+			} );
 		} );
-	};*/
+	};
 
     /*
      *
