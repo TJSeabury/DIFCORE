@@ -16,8 +16,10 @@ function DIFDESIGNCOREUTILITIES() {
     'use strict';
 
     let self = this;
-	
-	this._rootPathname = wpMeta.siteURL || '/';
+    if ( wpMeta )
+    {
+        this._rootPathname = wpMeta.siteURL || '/';
+    }
 
     /*
     * Handy-Dandy nifty properties
