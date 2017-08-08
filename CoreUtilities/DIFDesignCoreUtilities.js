@@ -1,10 +1,10 @@
 /*
  * DIFDesign Core frontend library.
- * © Copyright 2017, Tyler Seabury, DIF Design, All Rights reserved.
+ * © Copyright 2017, DIF Design, All Rights reserved.
  * @author Tyler Seabury, tylerseabury@gmail.com
  * @author DIF Design
- * @authorURI https://github.com/TJSeabury/
- * @authorURI http://difdesign.com/
+ * @authorURL https://github.com/TJSeabury/
+ * @authorURL http://difdesign.com/
  * @version 0.4.0
  */
 
@@ -16,8 +16,8 @@ function DIFDESIGNCOREUTILITIES() {
     'use strict';
 
     let self = this;
-
-    /*
+	
+	/*
     * Check if wpMeta has been localized before accessing.
     */
     try
@@ -32,7 +32,6 @@ function DIFDESIGNCOREUTILITIES() {
         }
         this._rootPathname = null;
     }
-    
 
     /*
     * Handy-Dandy nifty properties
@@ -679,19 +678,9 @@ function DIFDESIGNCOREUTILITIES() {
      */
     this.announceReady = function () {
         window._DIFDesignCoreReady = new CustomEvent('DIFDesignCoreReady', { bubbles: true });
-        console.log(
-            '%c D%cI%cF%cDesign%c:%cCoreUtilities %c> %cReady ',
-            'padding: 8px 0; color: #ed4b37; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
-            'padding: 8px 0; color: #21b15c; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
-            'padding: 8px 0; color: #1c80bf; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
-            'padding: 8px 0; color: hsla(220,15%,60%,1); font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
-            'padding: 8px 0; color: #444; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
-            'padding: 8px 0; color: #1c80bf; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
-            'padding: 8px 0; color: #444; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);',
-            'padding: 8px 0; color: #21b15c; font-family: Verdana; font-size: 16px; font-weight: 900; line-height: 18px; text-shadow: 0px 1px 1px rgba(0,0,0,0.5);'
-        );
         window.dispatchEvent(window._DIFDesignCoreReady);
         window.dispatchEvent( new Event( 'resize' ) );
+		console.log('DIF Design > Ready');
     };
 
 }

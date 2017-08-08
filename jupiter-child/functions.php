@@ -1,36 +1,29 @@
 <?php
-/*
-* !! THIS MUST BE SET TO 'LIVE' FOR DEPLOYMENT
-*/
-$GLOBALS['mode'] = 'development';
-//$GLOBALS['mode'] = 'live';
 
-add_action('wp_enqueue_scripts', 'difDesign_main_css', 420);
-add_action('wp_enqueue_scripts', 'difDesign_core_js', 24);
-add_action('wp_enqueue_scripts', 'difDesign_main_js', 16);
-
-if ( $GLOBALS['mode'] === 'development') {
-	add_action( 'admin_notices', 'devModeNotice' );
+function theme_enqueue_styles() {
+    wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/style.css', array( 'avada-stylesheet' ) );
 }
+add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles', 3 );
 
-add_filter( 'gform_enable_field_label_visibility_settings', '__return_true' );
+function avada_lang_setup() {
+	$lang = get_stylesheet_directory() . '/languages';
+	load_child_theme_textdomain( 'Avada', $lang );
+}
+add_action( 'after_setup_theme', 'avada_lang_setup' );
+
+add_action( 'wp_enqueue_scripts', 'difDesign_core_js', 2 );
+add_action( 'wp_enqueue_scripts', 'difDesign_main_js', 1 );
 
 function difDesign_core_js() {
-	$scriptURL = 'https://cdn.rawgit.com/TJSeabury/DIFDesignEssentials/2d41ab15/CoreUtilities/Releases/DIFDesignCoreUtilities.js';
-	if ( $GLOBALS['mode'] === 'development' ) {
-		$scriptURL = 'https://rawgit.com/TJSeabury/DIFDesignEssentials/master/CoreUtilities/DIFDesignCoreUtilities.js';
-	}
-	wp_enqueue_script( 'DIFDesignCoreJS', $scriptURL, array(), get_file_version($scriptURL), true);
+	$coreJsPath = get_stylesheet_directory_uri() . '/difdesigncoreutilities.js';
+	wp_register_script( 'DIFDesignCoreJS', $coreJsPath );
+	wp_localize_script( 'DIFDesignCoreJS', 'wpMeta', array( 'siteURL' => get_option('siteurl') ) );
+	wp_enqueue_script( 'DIFDesignCoreJS', $coreJsPath, array(), get_file_version($coreJsPath), true);
 }
 
 function difDesign_main_js() {
 	$mainJsPath = get_stylesheet_directory_uri() . '/main.js';
 	wp_enqueue_script( 'DIFDesignMainJS', $mainJsPath, array(), get_file_version($mainJsPath), true);
-}
-
-function difDesign_main_css() {
-	$mainCSSPath = get_stylesheet_directory_uri() . '/theme.css';
-	wp_enqueue_style( 'DIFDesignChildTheme', $mainCSSPath, array(), get_file_version($mainCSSPath) );
 }
 
 function get_file_version( $url ) {
@@ -51,10 +44,47 @@ function get_file_version( $url ) {
 	return $timestamp ? (string) $timestamp : null;
 }
 
-function devModeNotice() {
-    ?>
-    <div class="devMode error notice">
-        <p><strong><?php _e( 'Development mode is enabled! This must be disabled in <em>'.__DIR__.'/functions.php</em> at deployment.' ); ?></strong></p>
-    </div>
-    <?php
+/*
+* Adds the option to hide Gravity form field labels.
+*/
+add_filter( 'gform_enable_field_label_visibility_settings', '__return_true' );
+
+/*
+* Enables ajax for getting shortcodes dynamically
+*/
+add_action('wp_ajax_do_shortcode', 'ajax_do_shortcode');
+add_action('wp_ajax_nopriv_do_shortcode', 'ajax_do_shortcode');
+
+function ajax_do_shortcode()
+{
+	$output;
+    switch( $_REQUEST['fn'] )
+	{
+		case 'do_shortcode':
+			$output = do_shortcode( wp_unslash( $_REQUEST['shortcode'] ) );
+			break;
+		default:
+			$output = 'Invalid shortcode';
+			break;
+	}
+	$output = json_encode( $output );
+	echo $output;
+	wp_die();
 }
+
+add_action( 'after_setup_theme', 'my_child_theme_image_size', 11 );
+function my_child_theme_image_size()
+{
+	 remove_image_size( 'recent-works-thumbnail' ); 
+	 add_image_size( 'recent-works-thumbnail', 1000, '', false );
+}
+
+
+
+
+
+
+
+
+
+
