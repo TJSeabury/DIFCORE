@@ -19,17 +19,47 @@ window.addEventListener('DIFDesignCoreReady', function main() {
 	*/
 	document.body.classList.add( document.title.replace( /\W/g, '' ) );
     
-    /*
-    * Sets the height of elements to the viewport height minus the headers.
-    * @use Add class 'difFullHeight' to elements to set their height.
-    */
 	let wpadminbar = document.querySelector('#wpadminbar');
 	let mainHeader = document.querySelector('.fusion-header-wrapper');
-	let difFullHeight = document.querySelectorAll('.difFullHeight');
 	if ( D.W > 1023 )
 	{
+		let difFullHeight = document.querySelectorAll('.difFullHeight');
+		/*
+		* Sets the height of elements to the viewport height minus the headers.
+		* @param {HTMLElement Array} elements - The elements to set the height of.
+		* @param {Number} fraction - A number to modify the height being applied to the element.
+		* @param {HTMLElement Array} subtration - Elements to subtract the height of from the final height applied to the element.
+		* @use Add class 'difFullHeight' to elements to set their height.
+		*/
 		D.heightSetter( difFullHeight, 1.0, [mainHeader] );
 	}
+	
+	/*
+	* Inject request appointment button in main nav and form in header.
+	*/
+	let nav = mainHeader.querySelector('#menu-primary');
+	let requestAppointment = ( () =>
+  	{
+		let requestPageURL = '#';
+		let r = document.createElement('li');
+		let classes = [
+			'menu-item',
+			'menu-item-type-post_type',
+			'menu-item-object-page',
+			'menu-item-bookNow',
+			'fusion-last-menu-item'
+		];
+		r.setAttribute('role','menuitem');
+		r.id = 'menu-item-bookNow';
+		for ( let i = 0; i < classes.length; ++i )
+		{
+			r.classList.add( classes[i] );
+		}
+		r.innerHTML = '<a href=' + requestPageURL + ' class="difThemeButton"><span class="menu-text">BOOK NOW</span></a>';
+		return r;
+	}
+ 	)();
+	nav.appendChild(requestAppointment);
     
     /* --------------------------------------------------- */
     
