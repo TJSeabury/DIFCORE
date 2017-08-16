@@ -2,7 +2,7 @@
 
 /*
 * @param string $url The full file url.
-* @return string
+* @return int
 */
 class GetFileVersion
 {
@@ -22,6 +22,14 @@ class GetFileVersion
 		} catch ( \Exception $e ) {
 			return;
 		}
-		return $timestamp ? (string)$timestamp : null;
+		return $timestamp;
+	}
+	
+	/*
+	* 
+	*/
+	public static function comparator( string $r1, array $r2 )
+	{
+		
 	}
 }
