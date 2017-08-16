@@ -1,18 +1,37 @@
-<?php
+<?php namespace \difdesign;
 
 define( 'DIFDESIGNTHEMEROOT', get_stylesheet_directory_uri() );
 
+/*
+* @param string $class The fully-qualified class name.
+* @return void
+*/
+spl_autoload_register( function( $class )
+{
+    //$relative_class = substr( $class, $len );
+	var_dump( $class );
+    // replace the namespace prefix with the base directory, replace namespace
+    // separators with directory separators in the relative class name, append
+    // with .php
+    /* $file = __DIR__ . str_replace( '\\', '/', $relative_class ) . '.php';
+    if ( file_exists( $file ) )
+	{
+		var_dump( $file );
+        include_once $file;
+    } */
+} );
+
 class Difdesign
 {
-	private $themePath = '';
-	private $themeUri = '';
+	protected $themePath = '';
+	protected $themeUri = '';
 	private $initTime = 0;
 	
-	public function __construct( $themeRootPath, $themeRootUri, $Time )
+	public function __construct()
 	{
-		$this->themePath = $themeRootPath;
-		$this->themeUri = $themeRootUri;
-		$this->initTime = $Time;
+		$this->themePath = __DIR__;
+		$this->themeUri = basename( $_SERVER['PHP_SELF'] );
+		$this->initTime = time();
 		$this->initAdmin();
 		$this->initStyles();
 		$this->initScripts();
@@ -258,7 +277,7 @@ class Difdesign
 	
 }
 
-$difdesign = new Difdesign( __DIR__, DIFDESIGNTHEMEROOT, time() );
+$difdesign = new Difdesign();
 
 
 
