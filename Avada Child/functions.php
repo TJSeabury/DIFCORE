@@ -58,10 +58,7 @@ if ( (bool)get_option('difdesign_interface_ajax_shortcodes') )
 /*
 * Misc parent theme setup and modifiers.
 */
-add_action(
-	'after_setup_theme',
-	'avada_lang_setup'
-);
+
 function avada_lang_setup()
 {
 	$lang = get_stylesheet_directory() . '/languages';
@@ -70,12 +67,12 @@ function avada_lang_setup()
 		$lang
 	);
 }
-
 add_action(
 	'after_setup_theme',
-	'my_child_theme_image_size',
-	11
+	'avada_lang_setup'
 );
+
+
 function my_child_theme_image_size()
 {
 	 remove_image_size( 'recent-works-thumbnail' ); 
@@ -86,6 +83,11 @@ function my_child_theme_image_size()
 		 false
 	 );
 }
+add_action(
+	'after_setup_theme',
+	'my_child_theme_image_size',
+	11
+);
 
 /*
 * Plugin modifiers.

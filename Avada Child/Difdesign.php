@@ -182,13 +182,60 @@ class Difdesign
 	{
 		add_action( 'after_setup_theme', function() use( $readPath, $writePath, $filename )
 		{
-			admin\css\Aggregator::aggregate_minify(
+			$currentCss = $this->themePath . $writePath . $filename;
+			
+			$cssModulePaths = utils\AggregatorCss::getFiles(
 				$this->themePath . $readPath,
-				$this->themePath . $writePath,
-				$filename,
-				(bool)get_option( 'difdesign_minify_css' )
+				true
 			);
+			
+			if ( file_exists( $currentCss ) )
+			{
+				$areNewFiles = utils\FileVersion::comparator( $currentCss, $cssModulePaths );
+			}
+			else
+			{
+				$areNewFiles = true;
+			}
+			
+			if ( $areNewFiles )
+			{
+				$css = utils\AggregatorCss::agg(
+					utils\AggregatorCss::getFiles(
+						$this->themePath . $readPath,
+						false
+					)
+				);
+				if ( (bool)get_option('difdesign_minify_css') )
+				{
+					$css = utils\AggregatorCss::minify( $css );
+				}
+				utils\AggregatorCss::write(
+					$css,
+					$this->themePath . $writePath,
+					$filename
+				);
+			}
 		} );
+		
+		add_action( 'update_option_' . 'difdesign_minify_css', function() use( $readPath, $writePath, $filename )
+		{
+			$css = utils\AggregatorCss::agg(
+				utils\AggregatorCss::getFiles(
+					$this->themePath . $readPath,
+					false
+				)
+			);
+			if ( (bool)get_option('difdesign_minify_css') )
+			{
+				$css = utils\AggregatorCss::minify( $css );
+			}
+			utils\AggregatorCss::write(
+				$css,
+				$this->themePath . $writePath,
+				$filename
+			);
+		} ); 
 		
 		add_action( 'wp_enqueue_scripts', function() use( $writePath, $filename )
 		{
@@ -207,12 +254,12 @@ class Difdesign
 			$coreJsPath = $this->themeUri . '/public/js/difdesigncoreutilities.js';
 			wp_register_script( 'DIFDesignCoreJS', $coreJsPath );
 			wp_localize_script( 'DIFDesignCoreJS', 'wpMeta', array( 'siteURL' => get_option( 'siteurl' ) ) );
-			wp_enqueue_script( 'DIFDesignCoreJS', $coreJsPath, array(), $this->get_file_version( $coreJsPath ), true);
+			wp_enqueue_script( 'DIFDesignCoreJS', $coreJsPath, array(), utils\FileVersion::getVersion( $coreJsPath ), true);
 		}, 2 );
 		add_action( 'wp_enqueue_scripts', function()
 		{
 			$mainJsPath = $this->themeUri . '/public/js/main.js';
-			wp_enqueue_script( 'DIFDesignMainJS', $mainJsPath, array(), $this->get_file_version( $mainJsPath ), true);
+			wp_enqueue_script( 'DIFDesignMainJS', $mainJsPath, array(), utils\FileVersion::getVersion( $mainJsPath ), true);
 		}, 1 );
 	}
 	

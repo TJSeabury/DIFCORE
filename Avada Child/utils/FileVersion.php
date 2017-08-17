@@ -1,11 +1,12 @@
 <?php namespace DIFDesign\utils;
 
-/*
-* @param string $url The full file url.
-* @return int
-*/
-class GetFileVersion
+
+class FileVersion
 {
+	/*
+	* @param string $url The full file url.
+	* @return int
+	*/
 	public static function getVersion( $url )
 	{
 		$content_url = content_url();
@@ -26,10 +27,22 @@ class GetFileVersion
 	}
 	
 	/*
-	* 
+	* Compares the ages of files against a reference file.
+	* @param string $r1 - The reference file.
+	* @param array $r2 - The files to check.
+	* @return bool
 	*/
 	public static function comparator( string $r1, array $r2 )
 	{
-		
+		$r1 = filemtime( $r1 );
+		foreach ( $r2 as $r )
+		{
+			$rTime = filemtime( $r );
+			if ( $r1 <= filemtime( $r ) )
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 }

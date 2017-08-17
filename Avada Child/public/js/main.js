@@ -23,6 +23,7 @@ window.addEventListener('DIFDesignCoreReady', function main() {
 	let mainHeader = document.querySelector('.fusion-header-wrapper');
 	if ( D.W > 1023 )
 	{
+		let difFirstFullHeight = document.querySelectorAll('.difFirstFullHeight');
 		let difFullHeight = document.querySelectorAll('.difFullHeight');
 		/*
 		* Sets the height of elements to the viewport height minus the headers.
@@ -31,6 +32,7 @@ window.addEventListener('DIFDesignCoreReady', function main() {
 		* @param {HTMLElement Array} subtration - Elements to subtract the height of from the final height applied to the element.
 		* @use Add class 'difFullHeight' to elements to set their height.
 		*/
+		D.heightSetter( difFirstFullHeight, 1.0, [] );
 		D.heightSetter( difFullHeight, 1.0, [mainHeader] );
 	}
 	

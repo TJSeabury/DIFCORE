@@ -1,7 +1,8 @@
 /*
 * Fusion Layout Modifiers
 */
-.difFullHeight {
+.difFullHeight,
+.difFirstFullHeight {
 	display: flex;
 	align-items: stretch;
 }
@@ -49,3 +50,4 @@
 	display: flex;
 	align-items: flex-end;
 }
+.butter{}
